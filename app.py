@@ -59,8 +59,9 @@ annual = pd.DataFrame({
 
 # -------------------- DATA LOADING --------------------
 @st.cache_data(show_spinner=False)
+
 def load_csv(filename):
-    path = DATA / filename
+    path = Path(__file__).resolve().parent / filename
 
     if not path.exists():
         return pd.DataFrame(), f"File not found: data/{filename}"
@@ -459,7 +460,7 @@ elif page == "Data Explorer":
         "Inspect the actual CSV files bundled with this application.",
     )
 
-    files = sorted(DATA.glob("*.csv"))
+    files = sorted(Path(__file__).resolve().parent.glob("*.csv"))
 
     if not files:
         st.error("No CSV files were found inside the data folder.")
